@@ -1,10 +1,14 @@
 const { getUsers } = require('../../../controllers/userController');
 
-module.exports = async function handler(req, res) {
-  if (req.method === 'GET') {
-    return getUsers(req, res);
-  } else {
-    res.setHeader('Allow', ['GET']);
-    res.status(200).json({ message: 'Unable to fetch users' });
+const handler = async (req, res) => {
+  switch (req.method) {
+    case 'GET':
+      await getUsers(req, res);
+      break;
+    default:
+      res.setHeader('Allow', ['GET']);
+      res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 };
+
+module.exports = handler;
