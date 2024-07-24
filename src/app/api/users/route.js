@@ -5,6 +5,6 @@ module.exports = async function handler(req, res) {
     return getUsers(req, res);
   } else {
     res.setHeader('Allow', ['GET']);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
+    res.status(200).json({ message: 'Unable to fetch users' });
   }
 };
